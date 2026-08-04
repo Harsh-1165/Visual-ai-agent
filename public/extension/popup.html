@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Visual AI Agent</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 350px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+    
+    .container {
+      padding: 20px;
+      background: white;
+      min-height: 100vh;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+    
+    .header h1 {
+      font-size: 18px;
+      color: #667eea;
+    }
+    
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 12px;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+    
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+    
+    .status-dot.inactive {
+      background: #ef4444;
+    }
+    
+    .status-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .toggle-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 12px;
+      background: #f9f9f9;
+      border-radius: 8px;
+    }
+    
+    .toggle-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .toggle {
+      position: relative;
+      width: 50px;
+      height: 26px;
+      background: #ccc;
+      border-radius: 13px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .toggle.active {
+      background: #10b981;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: left 0.3s;
+    }
+    
+    .toggle.active .toggle-slider {
+      left: 27px;
+    }
+    
+    .info-section {
+      margin-bottom: 20px;
+    }
+    
+    .info-label {
+      font-size: 12px;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    
+    .info-value {
+      font-size: 14px;
+      color: #333;
+      background: #f5f5f5;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #5568d3;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    
+    .btn-secondary:hover {
+      background: #efefef;
+    }
+    
+    .login-section {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .login-message {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎯 Visual AI Agent</h1>
+    </div>
+    
+    <div id="auth-section" class="login-section" style="display: none;">
+      <p class="login-message">Please sign in to start tracking your activity</p>
+      <button class="btn-primary" onclick="openAuthPage()">Sign In / Sign Up</button>
+    </div>
+    
+    <div id="app-section" style="display: none;">
+      <div class="status">
+        <div class="status-dot" id="status-dot"></div>
+        <span class="status-text" id="status-text">Tracking Active</span>
+      </div>
+      
+      <div class="toggle-container">
+        <span class="toggle-label">Enable Tracking</span>
+        <div class="toggle" id="tracking-toggle" onclick="toggleTracking()">
+          <div class="toggle-slider"></div>
+        </div>
+      </div>
+      
+      <div class="info-section">
+        <div class="info-label">Screenshot Interval</div>
+        <div class="info-value" id="screenshot-interval">Every 60 seconds</div>
+      </div>
+      
+      <div class="info-section">
+        <div class="info-label">Activities Logged</div>
+        <div class="info-value" id="activities-count">0 activities</div>
+      </div>
+      
+      <div class="button-group">
+        <button class="btn-secondary" onclick="openSettings()">Settings</button>
+        <button class="btn-primary" onclick="openDashboard()">Dashboard</button>
+      </div>
+      
+      <div class="button-group">
+        <button class="btn-secondary" onclick="captureManualScreenshot()">Capture Now</button>
+        <button class="btn-secondary" onclick="signOutUser()">Sign Out</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

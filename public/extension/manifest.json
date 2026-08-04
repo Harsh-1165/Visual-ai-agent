@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Visual AI Agent - Activity Monitor",
+  "version": "1.0.0",
+  "description": "Track and analyze your browser activity with AI-powered insights",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabChange",
+    "tabs",
+    "webRequest",
+    "storage",
+    "cookies"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Visual AI Agent"
+  },
+  "options_page": "options.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["injected.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
